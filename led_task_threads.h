@@ -24,7 +24,11 @@ void offLed(void) {
 @param value We set 1 to be turned off and 0 to be turned on
 */
 void ledControl(int led, int value) {
-	PTB->PDOR = value << led;
+	if (value) {
+		PTB->PCOR |= MASK(led);
+	} else {
+		PTB->PSOR |= MASK(led);
+	}
 }
 
 /** ======================== GPIO Logic =========================== */
