@@ -1,11 +1,4 @@
-#pragma once
-#define RED_LED 	18
-#define GREEN_LED	19
-#define MASK(x)		(1 << (x))
-#include "RTE_Components.h"
-#include  CMSIS_device_header
-#include "cmsis_os2.h"
-#include "system_MKL25Z4.h"
+#include "macros.h"
 
 /** ======================== GPIO Logic =========================== */
 void initGPIO(void) {

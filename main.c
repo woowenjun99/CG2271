@@ -1,16 +1,15 @@
-#include "RTE_Components.h"
-#include  CMSIS_device_header
-#include "cmsis_os2.h"
 #include "led_task_threads.h"
+#include "tAudio.h"
  
 int main (void) {
   SystemCoreClockUpdate();
 	initGPIO();
 	offLed();
+	initPWM();
 	
-  osKernelInitialize();                 // Initialize CMSIS-RTOS
-  osThreadNew(red_led_thread, NULL, NULL);    // Create application main thread
-	osThreadNew(green_led_thread, NULL, NULL);    // Create application main thread
-  osKernelStart();                      // Start thread execution
+  osKernelInitialize();
+  osThreadNew(red_led_thread, NULL, NULL);
+	osThreadNew(green_led_thread, NULL, NULL);
+  osKernelStart();
   for (;;) {}
 }

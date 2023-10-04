@@ -392,6 +392,16 @@
               <FileType>5</FileType>
               <FilePath>.\led_task_threads.h</FilePath>
             </File>
+            <File>
+              <FileName>tAudio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\tAudio.h</FilePath>
+            </File>
+            <File>
+              <FileName>macros.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\macros.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
