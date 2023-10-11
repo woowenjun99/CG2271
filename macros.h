@@ -7,6 +7,11 @@
 #define PTB0_Pin 	0
 #define PTB1_Pin	1
 
+/// UART Logic
+#define BAUD_RATE 			115200
+#define UART_RX_PORTE23	23
+#define UART2_INT_PRIO	128
+
 /// Include all the libaries that we will use.
 #include "RTE_Components.h"
 #include  CMSIS_device_header

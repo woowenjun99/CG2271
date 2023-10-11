@@ -20,9 +20,6 @@ void offLed(void) {
 	PTB->PSOR |= MASK(RED_LED) | MASK(GREEN_LED);
 }
 
-/**
-@param value We set 1 to be turned off and 0 to be turned on
-*/
 void ledControl(int led, int value) {
 	if (value) {
 		PTB->PCOR |= MASK(led);

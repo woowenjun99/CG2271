@@ -393,14 +393,24 @@
               <FilePath>.\led_task_threads.h</FilePath>
             </File>
             <File>
+              <FileName>macros.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\macros.h</FilePath>
+            </File>
+            <File>
               <FileName>tAudio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\tAudio.h</FilePath>
             </File>
             <File>
-              <FileName>macros.h</FileName>
+              <FileName>uart.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\macros.h</FilePath>
+              <FilePath>.\uart.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\gpio.h</FilePath>
             </File>
           </Files>
         </Group>
