@@ -1,23 +1,18 @@
 #include "led_task_threads.h"
 #include "macros.h"
 #include "uart.h"
+#include "tAudio.h"
 
 int main (void) {
-  SystemCoreClockUpdate();
-	initUART();
-	initGPIO();
-
-	for (;;) {
-		offLed();
-		switch(data) {
-			case 0:
-				offLed();
-				break;
-			case 1:
-				ledControl(RED_LED, 1);
-				break;
-			default:
-				ledControl(GREEN_LED, 1);
-		}
-	}
+    SystemCoreClockUpdate();
+    initUART();
+    initGPIO();
+    initPWM();
+    
+    osKernelInitialize();
+    osThreadNew(red_led_thread, NULL, NULL);
+    osThreadNew(green_led_thread, NULL, NULL);
+    osThreadNew(audioThread, NULL, NULL);
+    osKernelStart();
+    while (1);
 }
