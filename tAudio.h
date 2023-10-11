@@ -24,7 +24,7 @@ void initPWM(void) {
 	TPM0_C0SC |= TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1);
 }
 
-void audioThread() {
+void audioThread(void *argument) {
     const uint16_t NOTES[] = {440, 330, 220, 110};
     const uint16_t DURATIONS[] = {1200, 1200, 1200, 1200};
     const int SIZE = sizeof(NOTES) / sizeof(NOTES[0]);
