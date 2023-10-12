@@ -1,11 +1,18 @@
 #include "macros.h"
 
-volatile int data = 0;
+/// Initially, first 3 bits are 0 (STOP state) and the 4th bit is 0 too (Not completed yet)
+volatile uint8_t data = 0;
 
+/**
+UART2_IRQHandler: If there is data to read from the register,
+we determine the data that will be received from the IRQ. We
+only release the semaphore to the tBrain.
+*/
 void UART2_IRQHandler(void) {
     NVIC_ClearPendingIRQ(UART2_IRQn);
     if (UART2->S1 & UART_S1_RDRF_MASK) {
         data = UART2->D;
+		osSemaphoreRelease(mySem);
     }
 }
 

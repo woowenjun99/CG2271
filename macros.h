@@ -16,3 +16,6 @@
 #include CMSIS_device_header
 #include "cmsis_os2.h"
 #include "system_MKL25Z4.h"
+
+/// Global variables
+osSemaphoreId_t mySem;
