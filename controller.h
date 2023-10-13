@@ -13,10 +13,10 @@ volatile enum Direction currentDirection = STOP;
 volatile uint8_t isCompleted = 0;
 
 /**
-Using the first 2 bits of the data that we received via UART,
-we determine the direction that we are moving.
-*/
-void _parseDirection() {
+ * Using the first 2 bits of the data that we received via UART,
+ * we determine the direction that we are moving.
+ */
+void parseDirection() {
 	uint8_t direction = data & (MASK(0) | MASK(1) | MASK(2));
 
 	switch (direction) {
@@ -37,14 +37,16 @@ void _parseDirection() {
 	}
 }
 
-void _parseIsCompleted() {
+void parseIsCompleted() {
 	isCompleted = data & MASK(3);
 }
 
-void tBrain(void* argument) {
-	for (;;) {
+void controllerThread(void* argument) {
+    initUART();
+    
+	while (1) {
 		osSemaphoreAcquire(mySem, osWaitForever);
-		_parseIsCompleted(); 
-		_parseDirection();
+		parseIsCompleted(); 
+		parseDirection();
 	}
 }
