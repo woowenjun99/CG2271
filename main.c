@@ -1,24 +1,21 @@
 #include "led_task_threads.h"
 #include "macros.h"
-#include "tAudio.h"
-#include "tBrain.h"
+#include "audio.h"
+#include "controller.h"
 
-const osThreadAttr_t thread_attr = {
+const osThreadAttr_t threadPriorityHigh = {
 	.priority = osPriorityHigh
 };
 
-int main (void) {
+int main() {
     SystemCoreClockUpdate();
-    initUART();
-    initGPIO();
-    initPWM();
 
     osKernelInitialize();
-		mySem = osSemaphoreNew(1, 1, NULL);
+    mySem = osSemaphoreNew(1, 1, NULL);
     osThreadNew(red_led_thread, NULL, NULL);
     osThreadNew(green_led_thread, NULL, NULL);
     osThreadNew(audioThread, NULL, NULL);
-		osThreadNew(tBrain, NULL, &thread_attr);
+    osThreadNew(controllerThread, NULL, &threadPriorityHigh);
     osKernelStart();
 
 	while (1);

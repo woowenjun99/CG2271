@@ -1,13 +1,13 @@
 #include "macros.h"
 
-/// Initially, first 3 bits are 0 (STOP state) and the 4th bit is 0 too (Not completed yet)
+// Initially, first 3 bits are 0 (STOP state) and the 4th bit is 0 too (Not completed yet)
 volatile uint8_t data = 0;
 
 /**
-UART2_IRQHandler: If there is data to read from the register,
-we determine the data that will be received from the IRQ. We
-only release the semaphore to the tBrain.
-*/
+ * UART2_IRQHandler: If there is data to read from the register,
+ * we determine the data that will be received from the IRQ. We
+ * only release the semaphore to the tBrain.
+ */
 void UART2_IRQHandler(void) {
     NVIC_ClearPendingIRQ(UART2_IRQn);
     if (UART2->S1 & UART_S1_RDRF_MASK) {
@@ -20,14 +20,14 @@ void initUART(void) {
     SIM->SCGC4 |= SIM_SCGC4_UART2_MASK;
     SIM->SCGC5 |= SIM_SCGC5_PORTE_MASK;
 
-    PORTE->PCR[UART_RX_PORTE23] &= ~PORT_PCR_MUX_MASK;
-    PORTE->PCR[UART_RX_PORTE23] |= PORT_PCR_MUX(4);
+    PORTE->PCR[UART_RX_PIN] &= ~PORT_PCR_MUX_MASK;
+    PORTE->PCR[UART_RX_PIN] |= PORT_PCR_MUX(4);
     
     // Turns off the receiver (Page 754 of 807)
     UART2->C2 &= ~UART_C2_RE_MASK;
     
     uint32_t bus_clock = DEFAULT_SYSTEM_CLOCK / 2;
-    uint32_t divisor = bus_clock / (BAUD_RATE * 16);
+    uint32_t divisor = bus_clock / (UART_BAUD_RATE * 16);
     UART2->BDH = UART_BDH_SBR(divisor >> 8);
     UART2->BDL = UART_BDL_SBR(divisor);
     
@@ -38,7 +38,7 @@ void initUART(void) {
     // Turn on the receiver and the receive interrupt (Page 754 of 807)
     UART2->C2 |= UART_C2_RE_MASK | UART_C2_RIE_MASK;
     
-    /// Set IRQ for UART
+    // Set IRQ for UART
     NVIC_ClearPendingIRQ(UART2_IRQn);
     NVIC_EnableIRQ(UART2_IRQn);
 }
