@@ -26,7 +26,7 @@ void audioThread(void* argument) {
     uint8_t on = 1;
     
     initAudioPWM();
-    while (1) {
+		while (1) {
         TPM1->MOD = SYSCLK / AUDIO_PRESCALAR / NOTES[count];
         TPM1_C0V = on ? (TPM1->MOD / AUDIO_VOLUME_DIVIDER) : 0;
         osDelay(AUDIO_DELAY(DURATIONS[count], on));
