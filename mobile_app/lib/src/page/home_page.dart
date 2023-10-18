@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,10 +51,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 x: -details.x,
                 y: -details.y,
               );
-
-              // If the robot is not moving => details.x == 0 and details.y == 0
-              // If the robot is reversing
-              print(manager.computePayload().toInteger().toString());
               channel.sink.add(manager.computePayload().toInteger().toString());
             })
           ],

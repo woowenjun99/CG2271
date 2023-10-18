@@ -18,8 +18,15 @@ class Payload {
   int toInteger() {
     int leftWheel = left;
     int rightWheel = right;
+
+    // Set the leftWheel to between 0 and 7.
+    if (leftWheel <= -8) leftWheel = -7;
+    if (leftWheel < 0) leftWheel = -leftWheel;
+    if (rightWheel >= 8) rightWheel = 7;
+    if (rightWheel < 0) rightWheel = -rightWheel;
+
     int payload = leftWheel << 3 | rightWheel;
-    if (isForward) payload |= _mask(6);
+    if (isForward) payload |= _mask(7);
     return payload;
   }
 }
@@ -41,21 +48,21 @@ class DirectionManager {
       return const Payload(isForward: false, left: 0, right: 0);
     }
 
-    double angle = atan2(y, x) * (180 / pi);
+    final double angle = atan2(y, x) * (180 / pi);
 
     // Forward Direction
     if (angle >= 0) {
       return Payload(
         isForward: true,
-        left: (((180 - angle) / 180) * 8).floor() - 1,
-        right: (angle / 180 * 8).round() - 1,
+        left: (angle / 180 * 8).floor(),
+        right: ((180 - angle) / 180 * 8).round(),
       );
     }
 
     return Payload(
       isForward: false,
-      left: (((-180 - angle) / 180) * 8).floor() - 1,
-      right: ((angle / -180) * 8).floor() - 1,
+      left: ((-angle / -180) * 8).floor(),
+      right: ((-180 - angle) / -180 * 8).floor(),
     );
   }
 }

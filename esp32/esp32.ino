@@ -20,9 +20,8 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t length)
       break;
     }
     case WStype_TEXT: {
-      // Serial.printf("[%u] get Text: %s\n", num, payload);
       uint8_t num2 = strtol((char*) payload, NULL, 10); 
-      Serial.println(num2);
+      Serial2.write(num2);
       webSocket.sendTXT(num, payload);
       break;
     }
