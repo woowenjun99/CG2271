@@ -1,23 +1,61 @@
 import 'dart:math';
 
+class Payload {
+  final bool isForward;
+  final int left;
+  final int right;
+
+  const Payload({
+    required this.isForward,
+    required this.left,
+    required this.right,
+  });
+
+  int _mask(int x) => 1 << x;
+
+  // Computes the payload based on the PWM and the speed to send to the
+  // web socket.
+  int toInteger() {
+    int leftWheel = left;
+    int rightWheel = right;
+    int payload = leftWheel << 3 | rightWheel;
+    if (isForward) payload |= _mask(6);
+    return payload;
+  }
+}
+
 class DirectionManager {
-  /// Used to compute the angle to turn the robot based on the x and y of the
-  /// joystick value.
-  static int computeAngle(double x, double y) {
-    /// Do not allow for reverse mode.
-    if (y > 0) return 0;
+  final double x;
+  final double y;
+  bool isForward;
 
-    final double angleInRadians = atan2(y, x);
+  DirectionManager({
+    required this.x,
+    required this.y,
+    this.isForward = false,
+  });
 
-    final double angleInDegrees = angleInRadians * (180 / pi);
-
-    int offsetAngle = (angleInDegrees + 90).round();
-
-    if (offsetAngle < -90) {
-      return -90;
-    } else if (offsetAngle > 90) {
-      return 90;
+  Payload computePayload() {
+    // Stop Direction
+    if (x == 0 && y == 0) {
+      return const Payload(isForward: false, left: 0, right: 0);
     }
-    return offsetAngle;
+
+    double angle = atan2(y, x) * (180 / pi);
+
+    // Forward Direction
+    if (angle >= 0) {
+      return Payload(
+        isForward: true,
+        left: (((180 - angle) / 180) * 8).floor() - 1,
+        right: (angle / 180 * 8).round() - 1,
+      );
+    }
+
+    return Payload(
+      isForward: false,
+      left: (((-180 - angle) / 180) * 8).floor() - 1,
+      right: ((angle / -180) * 8).floor() - 1,
+    );
   }
 }

@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'package:mobile_app/src/util/direction_manager.dart';
 
@@ -15,6 +18,7 @@ class MyHomePage extends ConsumerStatefulWidget {
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   final TextEditingController _ipAddressController = TextEditingController();
+  final channel = WebSocketChannel.connect(Uri.parse("ws://172.20.10.10:8080"));
 
   @override
   void dispose() {
@@ -22,7 +26,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
     super.dispose();
   }
 
-  void _incrementCounter() {}
+  int mask(int x) {
+    return 1 << x;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,24 +41,29 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextFormField(
-              controller: _ipAddressController,
-              decoration:
-                  const InputDecoration(labelText: "Enter the IP address"),
+            StreamBuilder(
+              stream: channel.stream,
+              builder: (context, snapshot) {
+                return Text(snapshot.hasData ? '${snapshot.data}' : '');
+              },
             ),
             const SizedBox(height: 24),
-
-            /// TODO: Configure the period so that it is smooth.
             Joystick(listener: (details) {
-              print("x: ${details.x}");
-              print("y: ${details.y}");
-              print("${DirectionManager.computeAngle(details.x, details.y)}");
+              final DirectionManager manager = DirectionManager(
+                x: -details.x,
+                y: -details.y,
+              );
+
+              // If the robot is not moving => details.x == 0 and details.y == 0
+              // If the robot is reversing
+              print(manager.computePayload().toInteger().toString());
+              channel.sink.add(manager.computePayload().toInteger().toString());
             })
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+      floatingActionButton: const FloatingActionButton(
+        onPressed: null,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
