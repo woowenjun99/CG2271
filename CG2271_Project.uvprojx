@@ -403,14 +403,29 @@
               <FilePath>.\uart.h</FilePath>
             </File>
             <File>
-              <FileName>controller.h</FileName>
+              <FileName>tMotorControl.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\controller.h</FilePath>
+              <FilePath>.\tMotorControl.h</FilePath>
             </File>
             <File>
               <FileName>audio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\audio.h</FilePath>
+            </File>
+            <File>
+              <FileName>controller.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\controller.h</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>tLED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\tLED.h</FilePath>
             </File>
           </Files>
         </Group>

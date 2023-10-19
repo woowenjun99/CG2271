@@ -2,6 +2,7 @@
 #include "macros.h"
 #include "audio.h"
 #include "controller.h"
+#include "motor.h"
 
 const osThreadAttr_t threadPriorityHigh = {
 	.priority = osPriorityHigh
@@ -9,13 +10,14 @@ const osThreadAttr_t threadPriorityHigh = {
 
 int main() {
     SystemCoreClockUpdate();
-
+    initUART();
+	
     osKernelInitialize();
-    mySem = osSemaphoreNew(1, 1, NULL);
     osThreadNew(red_led_thread, NULL, NULL);
     osThreadNew(green_led_thread, NULL, NULL);
     osThreadNew(audioThread, NULL, NULL);
     osThreadNew(controllerThread, NULL, &threadPriorityHigh);
+    osThreadNew(motorThread, NULL, NULL);
     osKernelStart();
 
 	while (1);

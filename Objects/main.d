@@ -14,3 +14,4 @@
 .\objects\main.o: audio.h
 .\objects\main.o: controller.h
 .\objects\main.o: uart.h
+.\objects\main.o: motor.h

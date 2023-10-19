@@ -1,6 +1,7 @@
  #include "macros.h"
 
 /** ======================== GPIO Logic =========================== */
+
 void offLed() {
     /// We write a 1 to the set register to set the bits to 1 to turn them off.
     PTB->PSOR |= MASK(RED_LED_PIN) | MASK(GREEN_LED_PIN);
