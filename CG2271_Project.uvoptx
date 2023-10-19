@@ -125,7 +125,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGTARM</Key>
-          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)</Name>
+          <Name>(1010=536,108,947,610,0)(1007=105,137,312,358,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -155,6 +155,21 @@
           <WinNumber>1</WinNumber>
           <ItemText>SystemCoreClock,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>data,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>leftWheelPWM,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>rightWheelPWM,0x0A</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
@@ -163,8 +178,16 @@
           <ItemText>((UART_Type *)(0x4006C000u))</ItemText>
         </Ww>
       </WatchWindow2>
+      <MemoryWindow1>
+        <Mm>
+          <WinNumber>1</WinNumber>
+          <SubType>0</SubType>
+          <ItemText>UART2</ItemText>
+          <AccSizeX>0</AccSizeX>
+        </Mm>
+      </MemoryWindow1>
       <ScvdPack>
-        <Filename>C:\Users\leona\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
+        <Filename>C:\Users\jessi\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
         <Type>ARM.CMSIS.5.6.0</Type>
         <SubType>1</SubType>
       </ScvdPack>
@@ -193,7 +216,7 @@
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
-        <TrcWin>0</TrcWin>
+        <TrcWin>1</TrcWin>
         <newCpu>0</newCpu>
         <uProt>0</uProt>
       </DebugFlag>
@@ -212,12 +235,12 @@
       <pMultCmdsp></pMultCmdsp>
       <SystemViewers>
         <Entry>
-          <Name>System Viewer\GPIOB</Name>
-          <WinId>35905</WinId>
+          <Name>System Viewer\DAC0</Name>
+          <WinId>35904</WinId>
         </Entry>
         <Entry>
-          <Name>System Viewer\TPM1</Name>
-          <WinId>35904</WinId>
+          <Name>System Viewer\UART2</Name>
+          <WinId>35905</WinId>
         </Entry>
       </SystemViewers>
     </TargetOption>
@@ -284,8 +307,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\controller.h</PathWithFileName>
-      <FilenameWithoutPath>controller.h</FilenameWithoutPath>
+      <PathWithFileName>.\tMotorControl.h</PathWithFileName>
+      <FilenameWithoutPath>tMotorControl.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -308,8 +331,32 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+      <PathWithFileName>.\controller.h</PathWithFileName>
+      <FilenameWithoutPath>controller.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>8</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
       <PathWithFileName>.\motor.h</PathWithFileName>
       <FilenameWithoutPath>motor.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>9</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\tLED.h</PathWithFileName>
+      <FilenameWithoutPath>tLED.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
