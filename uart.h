@@ -1,6 +1,5 @@
 #include "macros.h"
 
-// Initially, first 3 bits are 0 (STOP state) and the 4th bit is 0 too (Not completed yet)
 volatile uint8_t data = 0;
 
 /**
@@ -12,7 +11,6 @@ void UART2_IRQHandler(void) {
     NVIC_ClearPendingIRQ(UART2_IRQn);
     if (UART2->S1 & UART_S1_RDRF_MASK) {
         data = UART2->D;
-		osSemaphoreRelease(mySem);
     }
 }
 

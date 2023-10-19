@@ -10,9 +10,9 @@ const osThreadAttr_t threadPriorityHigh = {
 
 int main() {
     SystemCoreClockUpdate();
-
+		initUART();
+	
     osKernelInitialize();
-    mySem = osSemaphoreNew(1, 1, NULL);
     osThreadNew(red_led_thread, NULL, NULL);
     osThreadNew(green_led_thread, NULL, NULL);
     osThreadNew(audioThread, NULL, NULL);
