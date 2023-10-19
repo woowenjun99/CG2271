@@ -1,38 +1,47 @@
 #include "macros.h"
 
 void initAudioPWM() {
+    // Provide power to clock for Port B GPIO and TPM1
 	SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;
 	SIM->SCGC6 |= SIM_SCGC6_TPM1_MASK;
 	
+    // Set functionality of Port B Pin 0 to TPM1 channel 0 
 	PORTB->PCR[AUDIO_PIN] &= ~PORT_PCR_MUX_MASK;
 	PORTB->PCR[AUDIO_PIN] |= PORT_PCR_MUX(3);
 	
+    // Select clock source for TPM
 	SIM->SOPT2 &= ~SIM_SOPT2_TPMSRC_MASK;
 	SIM->SOPT2 |= SIM_SOPT2_TPMSRC(1);
 	
+    // Set PWM pulse to high-true
 	TPM1_C0SC &= ~(TPM_CnSC_ELSB_MASK | TPM_CnSC_ELSA_MASK | TPM_CnSC_MSB_MASK | TPM_CnSC_MSA_MASK);
 	TPM1_C0SC |= TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1);
 	
+    // Set TPM1 as center-aligned, TPM1 prescalar as 32, start TPM1
 	TPM1->SC |= TPM_SC_CPWMS_MASK;
 	TPM1->SC &= ~((TPM_SC_CMOD_MASK) | (TPM_SC_PS_MASK));
-	TPM1->SC |= (TPM_SC_CMOD(1) | TPM_SC_PS(7));
+	TPM1->SC |= (TPM_SC_CMOD(1) | TPM_SC_PS(5));
 }
 
+const uint16_t NOTE_VALUES[] = {NOTE_A4, NOTE_B4, NOTE_C5, NOTE_C5, NOTE_C5, NOTE_D5, NOTE_C5, NOTE_B4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_E4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_C4, NOTE_C5, NOTE_C5, NOTE_E5, NOTE_D5, NOTE_C5, NOTE_B4, NOTE_G4, NOTE_E4, NOTE_E5, NOTE_D5, NOTE_G4, NOTE_E4, NOTE_A4, NOTE_A4, NOTE_C4, NOTE_C5, NOTE_C5, NOTE_C5, NOTE_D5, NOTE_C5, NOTE_B4, NOTE_G4, NOTE_G4, NOTE_G4, NOTE_E4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_C4, NOTE_C5, NOTE_C5, NOTE_C5, NOTE_E5, NOTE_D5, NOTE_C5, NOTE_B4, NOTE_G4, NOTE_E4, NOTE_E5, NOTE_D5, NOTE_C5, NOTE_D5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_REST, NOTE_E4, NOTE_C4, NOTE_E4, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_E5, NOTE_A5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_E5, NOTE_D5, NOTE_B4, NOTE_G4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_A4, NOTE_A4, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_E5, NOTE_A5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_G4, NOTE_G4, NOTE_E5, NOTE_D5, NOTE_C5, NOTE_D5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_A4, NOTE_A4, NOTE_E5, NOTE_E5, NOTE_G5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_G4, NOTE_G4, NOTE_E5, NOTE_D5, NOTE_B4, NOTE_G4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_E5, NOTE_E5, NOTE_G5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_G4, NOTE_G4, NOTE_D5, NOTE_C5, NOTE_D5, NOTE_G5, NOTE_E5, NOTE_E5, NOTE_E4, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_E5, NOTE_A5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_E5, NOTE_D5, NOTE_B4, NOTE_G4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_A4, NOTE_A4, NOTE_A5, NOTE_A5, NOTE_A5, NOTE_E5, NOTE_A5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_G4, NOTE_G4, NOTE_E5, NOTE_D5, NOTE_C5, NOTE_D5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_A4, NOTE_A4, NOTE_E5, NOTE_E5, NOTE_G5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_G4, NOTE_G4, NOTE_E5, NOTE_D5, NOTE_B4, NOTE_G4, NOTE_G4, NOTE_A4, NOTE_B4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_A4, NOTE_E5, NOTE_E5, NOTE_G5, NOTE_G5, NOTE_E5, NOTE_D5, NOTE_E5, NOTE_G4, NOTE_G4, NOTE_D5, NOTE_C5, NOTE_D5, NOTE_G5, NOTE_E5, NOTE_E5, NOTE_E4, NOTE_REST};
+const uint8_t NOTE_DELAYS[] = {4, 4, 4, 4, 4, 2, 2, 8, 4, 4, 4, 4, 2, 2, 2, 2, 8, 4, 4, 4, 4, 4, 2, 2, 8, 4, 4, 4, 4, 4, 4, 8, 4, 4, 4, 4, 4, 2, 2, 8, 4, 4, 4, 4, 2, 2, 2, 2, 8, 4, 4, 4, 4, 2, 2, 2, 2, 8, 4, 4, 4, 4, 4, 4, 2, 2, 11, 1, 8, 4, 4, 4, 4, 4, 2, 2, 4, 2, 2, 8, 4, 4, 4, 2, 2, 4, 2, 2, 8, 4, 4, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 4, 4, 4, 4, 2, 2, 8, 4, 4, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 4, 4, 2, 2, 4, 2, 2, 8, 4, 4, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 4, 4, 2, 2, 8, 8, 4, 4, 4, 2, 2, 4, 2, 2, 8, 4, 4, 4, 2, 2, 4, 2, 2, 8, 4, 4, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 4, 4, 4, 4, 2, 2, 8, 4, 4, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 4, 4, 2, 2, 4, 2, 2, 8, 4, 4, 4, 2, 2, 4, 2, 2, 4, 2, 2, 4, 4, 4, 2, 2, 8, 8, 25};
+const uint8_t ADSR_VALUES[] = {0, 50, 75, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0, 0, 0};
+const uint32_t NOTE_SIZE = sizeof(NOTE_VALUES) / sizeof(NOTE_VALUES[0]);
+
 void audioThread(void* argument) {
-    const uint16_t NOTES[] = {262, 262, 392, 392, 440, 440, 392};
-    const uint16_t DURATIONS[] = {333, 333, 333, 333, 333, 333, 333};
-    const uint32_t SIZE = sizeof(NOTES) / sizeof(NOTES[0]);
-    uint32_t count = 0;
-    uint8_t on = 1;
-    
+    uint32_t notePtr = 0, adsrPtr = 0;
     initAudioPWM();
+    
     while (1) {
-        TPM1->MOD = SYSCLK / AUDIO_PRESCALAR / NOTES[count];
-        TPM1_C0V = on ? (TPM1->MOD / AUDIO_VOLUME_DIVIDER) : 0;
-        osDelay(AUDIO_DELAY(DURATIONS[count], on));
-        on = !on;
-        if (on) {
-            count = count == SIZE - 1 ? 0 : count + 1;
+        // Update frequency/period
+        TPM1->MOD = NOTE_VALUES[notePtr];
+        TPM1_C0V = TPM1->MOD != NOTE_REST ? (TPM1->MOD * (uint32_t) ADSR_VALUES[adsrPtr] / AUDIO_VOLUME_DIVIDER) : 0;
+        
+        // Wait for and handle next note
+        osDelay(10 * AUDIO_16TH_NOTE * NOTE_DELAYS[notePtr] / 16);
+        if (++adsrPtr == 16) {
+            adsrPtr = 0;
+            notePtr = notePtr == NOTE_SIZE - 1 ? 0 : notePtr + 1;
         }
     }
 }
