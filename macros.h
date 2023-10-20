@@ -5,6 +5,7 @@
 #include CMSIS_device_header
 #include "cmsis_os2.h"
 #include "system_MKL25Z4.h"
+#include "stdlib.h"
 
 #define SYSCLK 48000000
 
@@ -33,3 +34,16 @@
 #define HIGH_VALUE 7500 //lower this value to lower max speed
 // Global variables
 osSemaphoreId_t mySem;
+
+// Message Queue
+#define MSG_COUNT 1
+
+typedef struct {
+	uint8_t isCompleted;
+	uint8_t leftWheelPwm;
+	uint8_t rightWheelPwm;
+} myDataPacket;
+
+osMessageQueueId_t isCompletedMsg;
+osMessageQueueId_t leftWheelPwmMsg;
+osMessageQueueId_t rightWheelPwmMsg;

@@ -1,4 +1,4 @@
- #include "macros.h"
+#include "macros.h"
  
 /** ======================== Enable Ports for PWM =========================== */
 void initMotorPWM() {
@@ -106,7 +106,6 @@ void reverseRight(int motor_high, int motor_turn) {
 void motorThread(void *argument) {
 	initMotorPWM();
 
-	
 	while (1) {
 		//to be changed to update values received from UART
 		float x = 0; //negative for left, positive for right

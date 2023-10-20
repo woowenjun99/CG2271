@@ -4,20 +4,27 @@
 #include "controller.h"
 #include "motor.h"
 
-const osThreadAttr_t threadPriorityHigh = {
-	.priority = osPriorityHigh
-};
-
 int main() {
     SystemCoreClockUpdate();
 		initUART();
 	
     osKernelInitialize();
-    osThreadNew(red_led_thread, NULL, NULL);
+
+		// Create message queues
+		leftWheelPwmMsg = osMessageQueueNew(MSG_COUNT, sizeof(myDataPacket), NULL);
+		rightWheelPwmMsg = osMessageQueueNew(MSG_COUNT, sizeof(myDataPacket), NULL);
+		isCompletedMsg = osMessageQueueNew(MSG_COUNT, sizeof(myDataPacket), NULL);
+
+		// Create semaphores
+		mySem = osSemaphoreNew(1, 0, NULL);
+	
+		// Set up the threads
+		osThreadNew(red_led_thread, NULL, NULL);
     osThreadNew(green_led_thread, NULL, NULL);
     osThreadNew(audioThread, NULL, NULL);
-    osThreadNew(controllerThread, NULL, &threadPriorityHigh);
+    osThreadNew(controllerThread, NULL, NULL);
 		osThreadNew(motorThread, NULL, NULL);
+
     osKernelStart();
 
 	while (1);
