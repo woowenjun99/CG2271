@@ -403,11 +403,6 @@
               <FilePath>.\uart.h</FilePath>
             </File>
             <File>
-              <FileName>tMotorControl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\tMotorControl.h</FilePath>
-            </File>
-            <File>
               <FileName>audio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\audio.h</FilePath>
@@ -421,11 +416,6 @@
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>tLED.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\tLED.h</FilePath>
             </File>
           </Files>
         </Group>
