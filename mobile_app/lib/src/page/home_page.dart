@@ -16,7 +16,7 @@ class MyHomePage extends ConsumerStatefulWidget {
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   final TextEditingController _ipAddressController = TextEditingController();
-  final channel = WebSocketChannel.connect(Uri.parse("ws://172.20.10.10:8080"));
+  final channel = WebSocketChannel.connect(Uri.parse("ws://172.20.10.8:8080"));
 
   @override
   void dispose() {

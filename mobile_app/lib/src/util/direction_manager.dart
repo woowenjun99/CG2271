@@ -26,7 +26,7 @@ class Payload {
     if (rightWheel < 0) rightWheel = -rightWheel;
 
     int payload = leftWheel << 3 | rightWheel;
-    if (isForward) payload |= _mask(7);
+    if (isForward) payload |= _mask(6);
     return payload;
   }
 }
