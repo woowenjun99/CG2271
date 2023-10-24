@@ -1,35 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'package:mobile_app/src/util/direction_manager.dart';
 
-class MyHomePage extends ConsumerStatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
+class MyHomePage extends StatefulWidget {
   final String title;
 
+  const MyHomePage(this.title, {super.key});
+
   @override
-  ConsumerState<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends ConsumerState<MyHomePage> {
-  final TextEditingController _ipAddressController = TextEditingController();
-  final channel = WebSocketChannel.connect(Uri.parse("ws://172.20.10.8:8080"));
-
-  @override
-  void dispose() {
-    _ipAddressController.dispose();
-    super.dispose();
-  }
-
-  int mask(int x) {
-    return 1 << x;
-  }
-
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    WebSocketChannel channel =
+        WebSocketChannel.connect(Uri.parse("ws://${widget.title}"));
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -55,11 +44,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             })
           ],
         ),
-      ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

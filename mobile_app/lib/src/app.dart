@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_app/src/page/home_page.dart';
+import 'package:mobile_app/src/page/wifi.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -7,13 +9,29 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routerConfig: GoRouter(
+        initialLocation: "/",
+        routes: [
+          GoRoute(
+            path: "/",
+            builder: (context, state) {
+              return const WifiPage();
+            },
+          ),
+          GoRoute(
+            path: "/:id",
+            builder: (context, state) {
+              return MyHomePage(state.pathParameters["id"] as String);
+            },
+          )
+        ],
+      ),
     );
   }
 }
