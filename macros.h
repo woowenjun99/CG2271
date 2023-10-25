@@ -85,7 +85,7 @@
 #define LEFT_MOTOR_REVERSE_PIN 3 // Port C Pin 3
 #define RIGHT_MOTOR_REVERSE_PIN 4 //Port C Pin 4
 #define MOD_VALUE 7500 //period of PWM
-#define HIGH_VALUE 7500 //lower this value to lower max speed
+#define HIGH_VALUE 3000 //lower this value to lower max speed
 
 // Global variables
 osSemaphoreId_t mySem;
