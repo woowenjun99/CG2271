@@ -1,3 +1,3 @@
 void controllerThread(void* argument) {
-    while (1);
+    //while (1);
 }
