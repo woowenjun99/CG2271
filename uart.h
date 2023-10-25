@@ -1,10 +1,5 @@
 #include "macros.h"
 
-volatile float leftWheelDutyCycle = 0;
-volatile float rightWheelDutyCycle = 0;
-volatile uint8_t isReverse = 0;
-volatile uint8_t isCompleted = 0;
-
 void UART2_IRQHandler(void) {
     NVIC_ClearPendingIRQ(UART2_IRQn);
     if (UART2->S1 & UART_S1_RDRF_MASK) {
