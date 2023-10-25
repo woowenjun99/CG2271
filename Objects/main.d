@@ -14,5 +14,5 @@
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\main.o: audio.h
 .\objects\main.o: controller.h
-.\objects\main.o: uart.h
 .\objects\main.o: motor.h
+.\objects\main.o: uart.h

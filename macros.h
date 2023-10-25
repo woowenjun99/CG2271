@@ -31,19 +31,5 @@
 #define LEFT_MOTOR_REVERSE_PIN 3 // Port C Pin 3
 #define RIGHT_MOTOR_REVERSE_PIN 4 //Port C Pin 4
 #define MOD_VALUE 7500 //period of PWM
-#define HIGH_VALUE 7500 //lower this value to lower max speed
-// Global variables
-osSemaphoreId_t mySem;
+#define HIGH_VALUE 3000 //lower this value to lower max speed
 
-// Message Queue
-#define MSG_COUNT 1
-
-typedef struct {
-	uint8_t isCompleted;
-	uint8_t leftWheelPwm;
-	uint8_t rightWheelPwm;
-} myDataPacket;
-
-osMessageQueueId_t isCompletedMsg;
-osMessageQueueId_t leftWheelPwmMsg;
-osMessageQueueId_t rightWheelPwmMsg;

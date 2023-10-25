@@ -1,11 +1,19 @@
 #include "macros.h"
 
-volatile uint8_t data = 0;
+volatile float leftWheelDutyCycle = 0;
+volatile float rightWheelDutyCycle = 0;
+volatile uint8_t isReverse = 0;
+volatile uint8_t isCompleted = 0;
 
 void UART2_IRQHandler(void) {
     NVIC_ClearPendingIRQ(UART2_IRQn);
-    if (UART2->S1 & UART_S1_RDRF_MASK) data = UART2->D;
-	osSemaphoreRelease(mySem);
+    if (UART2->S1 & UART_S1_RDRF_MASK) {
+        uint8_t data = UART2->D;
+        rightWheelDutyCycle = ((data & 0b111000) >> 3) * 0.25;
+        leftWheelDutyCycle = (data & 0b111) * 0.25;
+        isReverse = data & MASK(6);
+        isCompleted = data & MASK(7);
+    }
 }
 
 void initUART(void) {
