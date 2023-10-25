@@ -4,20 +4,19 @@
 #include "controller.h"
 #include "motor.h"
 
-const osThreadAttr_t threadPriorityHigh = {
-	.priority = osPriorityHigh
-};
-
 int main() {
     SystemCoreClockUpdate();
-		initUART();
+	initUART();
 	
     osKernelInitialize();
-    osThreadNew(red_led_thread, NULL, NULL);
+	
+	// Set up the threads
+	osThreadNew(red_led_thread, NULL, NULL);
     osThreadNew(green_led_thread, NULL, NULL);
     osThreadNew(audioThread, NULL, NULL);
-    osThreadNew(controllerThread, NULL, &threadPriorityHigh);
-		osThreadNew(motorThread, NULL, NULL);
+    osThreadNew(controllerThread, NULL, NULL);
+	osThreadNew(motorThread, NULL, NULL);
+
     osKernelStart();
 
 	while (1);
