@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_joystick/flutter_joystick.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-
-import 'package:mobile_app/src/util/direction_manager.dart';
 
 class MyHomePage extends StatefulWidget {
   final String title;
@@ -35,13 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             const SizedBox(height: 24),
-            Joystick(listener: (details) {
-              final DirectionManager manager = DirectionManager(
-                x: -details.x,
-                y: -details.y,
-              );
-              channel.sink.add(manager.computePayload().toInteger().toString());
-            })
           ],
         ),
       ),
