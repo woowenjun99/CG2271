@@ -388,11 +388,6 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>led_task_threads.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\led_task_threads.h</FilePath>
-            </File>
-            <File>
               <FileName>macros.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\macros.h</FilePath>
@@ -416,6 +411,11 @@
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>led.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\led.h</FilePath>
             </File>
           </Files>
         </Group>
