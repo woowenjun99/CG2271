@@ -11,7 +11,7 @@ class WifiPage extends StatefulWidget {
 }
 
 class _WifiPageState extends State<WifiPage> {
-  List<String> availableNetworks = [];
+  List<String> availableNetworks = ["178"];
 
   @override
   Widget build(BuildContext context) {
