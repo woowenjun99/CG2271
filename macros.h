@@ -101,10 +101,6 @@ const uint8_t FIXED_LED_PIN = 20;
 #define UART_RX_PIN    23     // Port E Pin 23
 #define UART2_INT_PRIO 128
 
-volatile float leftWheelDutyCycle = 0;
-volatile float rightWheelDutyCycle = 0;
-volatile uint8_t isReverse = 0;
+volatile uint8_t direction = 8;
 volatile uint8_t isCompleted = 0;
-
-// Global variables
-osSemaphoreId_t mySem;
+volatile uint8_t shouldPauseMusic = 0;

@@ -4,10 +4,9 @@ void UART2_IRQHandler(void) {
     NVIC_ClearPendingIRQ(UART2_IRQn);
     if (UART2->S1 & UART_S1_RDRF_MASK) {
         uint8_t data = UART2->D;
-        rightWheelDutyCycle = ((data & 0b111000) >> 3) * 0.25;
-        leftWheelDutyCycle = (data & 0b111) * 0.25;
-        isReverse = data & MASK(6);
-        isCompleted = data & MASK(7);
+        direction = data & 0b111;
+        isCompleted = data & MASK(4);
+        shouldPauseMusic = data & MASK(5);
     }
 }
 

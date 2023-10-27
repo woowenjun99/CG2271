@@ -8,8 +8,6 @@ int main() {
 	initUART();
 	
     osKernelInitialize();
-	
-	// Set up the threads
     osThreadNew(audioThread, NULL, NULL);
     osThreadNew(ledThread, NULL, NULL);
     osThreadNew(motorThread, NULL, NULL);

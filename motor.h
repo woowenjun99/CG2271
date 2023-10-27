@@ -48,17 +48,59 @@ void initMotorPWM() {
 	TPM0_C3SC |= (TPM_CnSC_ELSB(1) | TPM_CnSC_MSB(1));
 }
 
+void move(float pinZero, float pinOne, float pinTwo, float pinThree) {
+    TPM0_C0V = pinZero * HIGH_VALUE;
+    TPM0_C1V = pinOne * HIGH_VALUE;
+    TPM0_C2V = pinTwo * HIGH_VALUE;
+    TPM0_C3V = pinThree * HIGH_VALUE;
+}
+
+void determineDirection() {
+    switch(direction) {
+    case 0:
+        // North
+        move(1.0, 1.0, 0.0, 0.0);
+        break;
+    case 1:
+        // North East
+        move(0.5, 1.0, 0.0, 0.0);
+        break;
+    case 2:
+        // East
+        move(1.0, 0.0, 0.0, 0.0);
+        break;
+    case 3:
+        // South East
+        move(0.0, 0.0, 1.0, 0.5);
+        break;
+    case 4:
+        // South
+        move(0.0, 0.0, 1.0, 1.0);
+        break;
+    case 5:
+        // South West
+        move(0.0, 0.0, 0.5, 1.0);
+        break;
+    case 6:
+        // West
+        move(0.0, 1.0, 0.0, 0.0);
+        break;
+    case 7:
+        // North West
+        move(0.5, 1.0, 0.0, 0.0);
+        break;
+    default:
+        move(0.0, 0.0, 0.0, 0.0);
+        break;
+    }
+}
+
 void motorThread(void *argument) {
 	initMotorPWM();
 
 	while (1) {
-        // Left Forward Motor
-		TPM0_C0V = !isReverse ? leftWheelDutyCycle * HIGH_VALUE : 0;
-        // Right Forward Motor
-		TPM0_C1V = !isReverse ? rightWheelDutyCycle * HIGH_VALUE : 0;
-        // Left Reverse Motor
-		TPM0_C2V = isReverse ? rightWheelDutyCycle * HIGH_VALUE : 0;
-        // Right Reverse motor
-		TPM0_C3V = isReverse ? leftWheelDutyCycle * HIGH_VALUE : 0;
+        determineDirection();
+        osDelay(1000);
+        direction = 8;
 	}
 }
