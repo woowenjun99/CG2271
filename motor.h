@@ -98,9 +98,5 @@ void determineDirection() {
 void motorThread(void *argument) {
 	initMotorPWM();
 
-	while (1) {
-        determineDirection();
-        osDelay(1000);
-        direction = 8;
-	}
+	while (1) determineDirection();
 }

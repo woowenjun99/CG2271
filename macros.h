@@ -90,7 +90,7 @@ const uint8_t FIXED_LED_PIN = 20;
 
 // MOTOR
 #define LEFT_MOTOR_FORWARD_PIN 1 // Port C Pin 1
-#define RIGHT_MOTOR_FORWARD_PIN 2 //Port C Pin 2
+#define RIGHT_MOTOR_FORWARD_PIN 2 // Port C Pin 2
 #define LEFT_MOTOR_REVERSE_PIN 3 // Port C Pin 3
 #define RIGHT_MOTOR_REVERSE_PIN 4 //Port C Pin 4
 #define MOD_VALUE 7500 //period of PWM
@@ -104,3 +104,10 @@ const uint8_t FIXED_LED_PIN = 20;
 volatile uint8_t direction = 8;
 volatile uint8_t isCompleted = 0;
 volatile uint8_t shouldPauseMusic = 0;
+
+/**
+Red Led: PTE20
+Audio: PTB0
+Front Left Wheel: PTC1
+Back Left Wheel PTC3
+*/
