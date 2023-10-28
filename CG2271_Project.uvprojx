@@ -403,11 +403,6 @@
               <FilePath>.\audio.h</FilePath>
             </File>
             <File>
-              <FileName>controller.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\controller.h</FilePath>
-            </File>
-            <File>
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\motor.h</FilePath>

@@ -25,7 +25,7 @@ void initGPIO() {
      while (1) {
          // Toggle red LEDs as they are always flashing, just with different delays
          FIXED_LED_GPIO->PTOR |= MASK(FIXED_LED_PIN);
-         if (leftWheelDutyCycle || rightWheelDutyCycle) {
+         if (direction != 8) {
              // Green LEDs in running mode when robot is moving
              for (int i = 0; i < 8; i++) {
                  RUNNING_LED_GPIOS[i]->PCOR |= MASK(RUNNING_LED_PINS[i]);
