@@ -24,19 +24,24 @@ void initAudioPWM() {
 }
 
 void audioThread(void* argument) {
-    uint32_t notePtr = 0, adsrPtr = 0;
+    uint8_t adsrPtr = 0;
     initAudioPWM();
     
     while (1) {
+        if (shouldPauseMusic) {
+            TPM1_C0V = 0;
+            osDelay(500);
+            continue;
+        }
         // Update frequency/period
-        TPM1->MOD = NOTE_VALUES[notePtr];
+        TPM1->MOD = NOTE_VALUES[trackPtr][notePtr];
         TPM1_C0V = TPM1->MOD != NOTE_REST ? (TPM1->MOD * (uint32_t) ADSR_VALUES[adsrPtr] / AUDIO_VOLUME_DIVIDER) : 0;
         
         // Wait for and handle next note
-        osDelay(10 * AUDIO_16TH_NOTE * NOTE_DELAYS[notePtr] / 16);
+        osDelay(NOTE_DELAYS[trackPtr][notePtr] / 16);
         if (++adsrPtr == 16) {
             adsrPtr = 0;
-            notePtr = notePtr == NOTE_SIZE - 1 ? 0 : notePtr + 1;
+            notePtr = notePtr == NOTE_SIZES[trackPtr] - 1 ? 0 : notePtr + 1;
         }
     }
 }

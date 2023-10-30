@@ -5,8 +5,11 @@ void UART2_IRQHandler(void) {
     if (UART2->S1 & UART_S1_RDRF_MASK) {
         uint8_t data = UART2->D;
         direction = data & 0b111;
-        isCompleted = data & MASK(4);
-        shouldPauseMusic = data & MASK(5);
+        shouldPauseMusic = data & MASK(5) ? !shouldPauseMusic : shouldPauseMusic;
+        if (data & MASK(4)) {
+            trackPtr = !trackPtr;
+            notePtr = 0;
+        }
     }
 }
 
