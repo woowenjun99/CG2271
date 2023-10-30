@@ -63,7 +63,7 @@ void determineDirection() {
         break;
     case 1:
         // North East
-        move(0.5, 1.0, 0.0, 0.0);
+        move(1.0, 0.25, 0.0, 0.0);
         break;
     case 2:
         // East
@@ -71,7 +71,7 @@ void determineDirection() {
         break;
     case 3:
         // South East
-        move(0.0, 0.0, 1.0, 0.5);
+        move(0.0, 0.0, 1.0, 0.25);
         break;
     case 4:
         // South
@@ -79,7 +79,7 @@ void determineDirection() {
         break;
     case 5:
         // South West
-        move(0.0, 0.0, 0.5, 1.0);
+        move(0.0, 0.0, 0.25, 1.0);
         break;
     case 6:
         // West
@@ -87,7 +87,7 @@ void determineDirection() {
         break;
     case 7:
         // North West
-        move(0.5, 1.0, 0.0, 0.0);
+        move(0.25, 1, 0.0, 0.0);
         break;
     default:
         move(0.0, 0.0, 0.0, 0.0);

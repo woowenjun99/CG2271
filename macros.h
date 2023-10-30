@@ -98,7 +98,7 @@ const uint8_t FIXED_LED_PIN = 20;
 #define LEFT_MOTOR_REVERSE_PIN 3 // Port C Pin 3
 #define RIGHT_MOTOR_REVERSE_PIN 4 //Port C Pin 4
 #define MOD_VALUE 7500 //period of PWM
-#define HIGH_VALUE 3000 //lower this value to lower max speed
+#define HIGH_VALUE 6000 //lower this value to lower max speed
 
 // UART
 #define UART_BAUD_RATE 115200
@@ -106,7 +106,7 @@ const uint8_t FIXED_LED_PIN = 20;
 #define UART2_INT_PRIO 128
 
 volatile uint8_t direction = 8;
-volatile uint8_t shouldPauseMusic = 0;
+volatile uint8_t shouldPauseMusic = 1;
 
 /**
 Red Led: PTE20
